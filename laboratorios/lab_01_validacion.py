@@ -26,12 +26,36 @@ def validar_producto(codigo, nombre, precio, stock):
     """
     # TODO: Implementar validaciones siguiendo estos pasos:
     # 1. Validar tipos de datos
-    # 2. Validar formato de código (alfanumérico)
-    # 3. Validar nombre no vacío
-    # 4. Validar precio positivo
-    # 5. Validar stock no negativo
+    if not isinstance(codigo, str):
+        raise TypeError("El código debe ser una cadena de texto")
+    if not isinstance(nombre, str):
+        raise TypeError("El nombre debe ser una cadena de texto")
     
-    raise NotImplementedError("¡Función no implementada!")
+    try:
+        precio = float(precio)
+        stock = int(stock)
+    except (ValueError, TypeError):
+        raise TypeError("El precio debe ser un número y el stock un entero")
+
+    # 2. Validar formato de código (alfanumérico) codigo.isalnum()
+    if not codigo.isalnum():
+        raise ValueError("El código debe ser alfanumérico")
+    # 3. Validar nombre no vacío
+    if not nombre:
+        raise ValueError("El nombre no puede estar vacío")
+    # 4. Validar precio positivo
+    if precio <= 0:
+        raise ValueError("El precio debe ser positivo")
+    # 5. Validar stock no negativo
+    if stock < 0:
+        raise ValueError("El stock no puede ser negativo")
+
+    return {
+        "codigo": codigo,
+        "nombre": nombre,
+        "precio": precio,
+        "stock": stock
+    }
 
 def main():
     # Casos de prueba
@@ -43,7 +67,7 @@ def main():
             "stock": 5
         },
         {
-            "codigo": "123",  # Código no alfanumérico
+            "codigo": "123!",  # Código no alfanumérico
             "nombre": "",     # Nombre vacío
             "precio": -100,   # Precio negativo
             "stock": -1       # Stock negativo

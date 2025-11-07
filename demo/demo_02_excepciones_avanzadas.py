@@ -38,8 +38,8 @@ def demo_excepciones_avanzadas():
     # Ejemplo 1: Excepciones personalizadas
     print("\n1. Manejo de excepciones personalizadas:")
     try:
-        laptop = Producto("Laptop Pro", 1200, 5)
-        laptop.actualizar_stock(-6)  # Intentar restar más del stock disponible
+        laptop = Producto("Laptop Pro", -1200, 5)
+        laptop.actualizar_stock(-5)  # Intentar restar más del stock disponible
     except StockError as e:
         print(f"Error de stock: {str(e)}")
     except PrecioInvalidoError as e:
